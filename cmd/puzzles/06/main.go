@@ -5,23 +5,59 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
-	fmt.Printf("Part 1: %d\n", part1())
-	fmt.Printf("Part 2: %d\n", part2())
+	part1ResultBadPerformance, part1DurationBadPerformance := part1BadPerformance()
+	fmt.Printf("Part 1: %d (took %s)\n", part1ResultBadPerformance, part1DurationBadPerformance)
+
+	part1Result, part1Duration := part1()
+	fmt.Printf("Part 1: %d (took %s)\n", part1Result, part1Duration)
+
+	part2Result, part2Duration := part2()
+	fmt.Printf("Part 2: %d (took %s)\n", part2Result, part2Duration)
 }
 
-func part1() int {
+func part1BadPerformance() (int, time.Duration) {
 	file := util.ReadFile("06")
-	timer := initTimer(file[0])
-	return performEvolution(timer, 80)
+
+	start := time.Now()
+	var fish []int
+	for _, initialValue := range strings.Split(file[0], ",") {
+		initialTimer, _ := strconv.Atoi(initialValue)
+		fish = append(fish, initialTimer)
+	}
+
+	for i := 1; i <= 80; i++ {
+		var newFish []int
+		for j, f := range fish {
+			if f == 0 {
+				newFish = append(newFish, 8)
+				fish[j] = 6
+			} else {
+				fish[j]--
+			}
+		}
+		fish = append(fish, newFish...)
+	}
+	return len(fish), time.Since(start)
 }
 
-func part2() int {
+func part1() (int, time.Duration) {
 	file := util.ReadFile("06")
-	timer := initTimer(file[0])
-	return performEvolution(timer, 256)
+	start := time.Now()
+	timerCounter := initTimer(file[0])
+	result := performEvolution(timerCounter, 80)
+	return result, time.Since(start)
+}
+
+func part2() (int, time.Duration) {
+	file := util.ReadFile("06")
+	start := time.Now()
+	timerCounter := initTimer(file[0])
+	result := performEvolution(timerCounter, 256)
+	return result, time.Since(start)
 }
 
 func initTimer(input string) []int {
