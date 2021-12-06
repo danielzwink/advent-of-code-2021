@@ -25,29 +25,33 @@ func part2() int {
 }
 
 func initTimer(input string) []int {
-	timer := make([]int, 9)
+	timerCounter := make([]int, 9)
 
-	for _, initialValue := range strings.Split(input, ",") {
-		i, _ := strconv.Atoi(initialValue)
-		timer[i]++
+	for _, initialTimerValue := range strings.Split(input, ",") {
+		initialTimer, _ := strconv.Atoi(initialTimerValue)
+		timerCounter[initialTimer]++
 	}
 
-	return timer
+	return timerCounter
 }
 
-func performEvolution(timer []int, days int) int {
+func performEvolution(timerCounter []int, days int) int {
 	for i := 1; i <= days; i++ {
-		newFish := timer[0]
+		// store the count for 0 as new fish count for later purpose
+		newFishCount := timerCounter[0]
+		// shift all counters to the left by 1
 		for i := 1; i <= 8; i++ {
-			timer[i-1] = timer[i]
+			timerCounter[i-1] = timerCounter[i]
 		}
-		timer[6] += newFish
-		timer[8] = newFish
+		// toggle the previously stored count for 0 to 6 and add them there
+		timerCounter[6] += newFishCount
+		// create new fish with 8 accordingly (override instead of add is important here)
+		timerCounter[8] = newFishCount
 	}
 
 	sum := 0
 	for i := 0; i <= 8; i++ {
-		sum += timer[i]
+		sum += timerCounter[i]
 	}
 	return sum
 }
