@@ -12,12 +12,24 @@ import (
 )
 
 var closingBracketMap = make(map[string]string, 4)
+var syntaxErrorScore = make(map[string]int, 4)
+var autoCompleteScore = make(map[string]int, 4)
 
 func main() {
 	closingBracketMap["("] = ")"
 	closingBracketMap["["] = "]"
 	closingBracketMap["{"] = "}"
 	closingBracketMap["<"] = ">"
+
+	syntaxErrorScore[")"] = 3
+	syntaxErrorScore["]"] = 57
+	syntaxErrorScore["}"] = 1197
+	syntaxErrorScore[">"] = 25137
+
+	autoCompleteScore[")"] = 1
+	autoCompleteScore["]"] = 2
+	autoCompleteScore["}"] = 3
+	autoCompleteScore[">"] = 4
 
 	part1Result, part1Duration := part1()
 	fmt.Printf("Part 1: %10d (duration: %s)\n", part1Result, part1Duration)
@@ -40,7 +52,7 @@ func part1() (int, time.Duration) {
 			corruptedChunk := evaluateChunk(line[i], stack)
 
 			if len(corruptedChunk) == 1 {
-				score += syntaxErrorScore(corruptedChunk)
+				score += syntaxErrorScore[corruptedChunk]
 				break
 			}
 		}
@@ -73,8 +85,8 @@ func part2() (int, time.Duration) {
 		if !corrupted && remainingStackSize > 0 {
 			score := 0
 			for i := 0; i < remainingStackSize; i++ {
-				chunk := stack.Pop()
-				score = (5 * score) + autoCompleteScore(chunk.Closing)
+				chunk := stack.Pop().Closing
+				score = (5 * score) + autoCompleteScore[chunk]
 			}
 			autoCompleteScores = append(autoCompleteScores, score)
 		}
@@ -86,68 +98,19 @@ func part2() (int, time.Duration) {
 }
 
 func evaluateChunk(char string, stack *types.Stack) string {
-	switch char {
-	case "(":
-		fallthrough
-	case "[":
-		fallthrough
-	case "{":
-		fallthrough
-	case "<":
+	if strings.Contains("<{[(", char) {
 		chunk := types.Chunk{Closing: closingBracketMap[char]}
 		stack.Push(chunk)
 		return ""
-	case ")":
-		fallthrough
-	case "]":
-		fallthrough
-	case "}":
-		fallthrough
-	case ">":
+
+	} else if strings.Contains(")]}>", char) {
 		chunk := stack.Pop()
-		return checkChunk(char, chunk)
+		if char != chunk.Closing {
+			return char
+		}
+		return ""
 	}
 
 	log.Fatalf("Invalid character: %v", char)
 	return ""
-}
-
-func checkChunk(givenChar string, expectedChunk types.Chunk) string {
-	if givenChar == expectedChunk.Closing {
-		return ""
-	} else {
-		return givenChar
-	}
-}
-
-func syntaxErrorScore(chunk string) int {
-	switch chunk {
-	case ")":
-		return 3
-	case "]":
-		return 57
-	case "}":
-		return 1197
-	case ">":
-		return 25137
-	}
-
-	log.Fatalf("Invalid character: %v", chunk)
-	return 0
-}
-
-func autoCompleteScore(chunk string) int {
-	switch chunk {
-	case ")":
-		return 1
-	case "]":
-		return 2
-	case "}":
-		return 3
-	case ">":
-		return 4
-	}
-
-	log.Fatalf("Invalid character: %v", chunk)
-	return 0
 }
