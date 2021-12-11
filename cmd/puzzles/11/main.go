@@ -27,64 +27,14 @@ func part1() (int, time.Duration) {
 
 	flashes := 0
 	for step := 1; step <= Steps; step++ {
-
 		// increase energy level by 1
-		willFlash := false
-		for row := 0; row < Size; row++ {
-			for col := 0; col < Size; col++ {
-				octopuses[row][col]++
+		willFlash := increaseEnergyLevels(octopuses)
 
-				if octopuses[row][col] > 9 {
-					willFlash = true
-				}
-			}
-		}
+		// perform flashes
+		performFlashes(octopuses, willFlash)
 
-		// flash
-		for willFlash {
-			willFlash = false
-			// for every octopus
-			for row := 0; row < Size; row++ {
-				for col := 0; col < Size; col++ {
-					// that reached a level above 9
-					if octopuses[row][col] > 9 {
-						// flash its adjacent octopuses
-						for y := -1; y <= 1; y++ {
-							for x := -1; x <= 1; x++ {
-								// check bounds
-								adjacentRow, adjacentCol := row+y, col+x
-								if adjacentRow < 0 || adjacentRow >= Size || adjacentCol < 0 || adjacentCol >= Size {
-									continue
-								}
-								// exclude past or upcoming flashes
-								level := octopuses[adjacentRow][adjacentCol]
-								if level < 0 || level > 9 {
-									continue
-								}
-								// increase adjacent energy level due to flash
-								octopuses[adjacentRow][adjacentCol]++
-								// flag upcoming flash
-								if octopuses[adjacentRow][adjacentCol] > 9 {
-									willFlash = true
-								}
-							}
-						}
-						// mark and count flash
-						octopuses[row][col] = -1
-						flashes++
-					}
-				}
-			}
-		}
-
-		// reset level after flash
-		for row := 0; row < Size; row++ {
-			for col := 0; col < Size; col++ {
-				if octopuses[row][col] == -1 {
-					octopuses[row][col] = 0
-				}
-			}
-		}
+		// reset level and count flashes
+		flashes += resetFlashes(octopuses)
 	}
 	return flashes, time.Since(start)
 }
@@ -94,66 +44,16 @@ func part2() (int, time.Duration) {
 	start := time.Now()
 
 	for step := 1; true; step++ {
-
 		// increase energy level by 1
-		willFlash := false
-		for row := 0; row < Size; row++ {
-			for col := 0; col < Size; col++ {
-				octopuses[row][col]++
+		willFlash := increaseEnergyLevels(octopuses)
 
-				if octopuses[row][col] > 9 {
-					willFlash = true
-				}
-			}
-		}
+		// perform flashes
+		performFlashes(octopuses, willFlash)
 
-		// flash
-		for willFlash {
-			willFlash = false
-			// for every octopus
-			for row := 0; row < Size; row++ {
-				for col := 0; col < Size; col++ {
-					// that reached a level above 9
-					if octopuses[row][col] > 9 {
-						// flash its adjacent octopuses
-						for y := -1; y <= 1; y++ {
-							for x := -1; x <= 1; x++ {
-								// check bounds
-								adjacentRow, adjacentCol := row+y, col+x
-								if adjacentRow < 0 || adjacentRow >= Size || adjacentCol < 0 || adjacentCol >= Size {
-									continue
-								}
-								// exclude past or upcoming flashes
-								level := octopuses[adjacentRow][adjacentCol]
-								if level < 0 || level > 9 {
-									continue
-								}
-								// increase adjacent energy level due to flash
-								octopuses[adjacentRow][adjacentCol]++
-								// flag upcoming flash
-								if octopuses[adjacentRow][adjacentCol] > 9 {
-									willFlash = true
-								}
-							}
-						}
-						// mark flash
-						octopuses[row][col] = -1
-					}
-				}
-			}
-		}
+		// reset level and count flashes
+		flashes := resetFlashes(octopuses)
 
-		// reset level after flash
-		flashes := 0
-		for row := 0; row < Size; row++ {
-			for col := 0; col < Size; col++ {
-				if octopuses[row][col] == -1 {
-					octopuses[row][col] = 0
-					flashes++
-				}
-			}
-		}
-		// return when all flashed simultaneously
+		// return step when all octopuses flashed simultaneously
 		if flashes == Size*Size {
 			return step, time.Since(start)
 		}
@@ -174,4 +74,71 @@ func readOctopuses() [][]octopus {
 		octopuses = append(octopuses, row)
 	}
 	return octopuses
+}
+
+func increaseEnergyLevels(octopuses [][]octopus) (willFlash bool) {
+	for row := 0; row < Size; row++ {
+		for col := 0; col < Size; col++ {
+			octopuses[row][col]++
+
+			if octopuses[row][col] > 9 {
+				willFlash = true
+			}
+		}
+	}
+	return willFlash
+}
+
+func performFlashes(octopuses [][]octopus, willFlash bool) {
+	for willFlash {
+		willFlash = false
+
+		// for every octopus
+		for row := 0; row < Size; row++ {
+			for col := 0; col < Size; col++ {
+
+				// that reached an energy level above 9
+				if octopuses[row][col] <= 9 {
+					continue
+				}
+
+				// perform flash by increasing adjacent levels
+				for y := -1; y <= 1; y++ {
+					for x := -1; x <= 1; x++ {
+						// check bounds and not self
+						adjacentRow, adjacentCol := row+y, col+x
+						if adjacentRow < 0 || adjacentRow >= Size || adjacentCol < 0 || adjacentCol >= Size || (adjacentRow == row && adjacentCol == col) {
+							continue
+						}
+						// exclude past or upcoming flashes
+						level := octopuses[adjacentRow][adjacentCol]
+						if level < 0 || level > 9 {
+							continue
+						}
+						// increase energy level due to flash
+						octopuses[adjacentRow][adjacentCol]++
+						// check if another loop is required
+						if octopuses[adjacentRow][adjacentCol] > 9 {
+							willFlash = true
+						}
+					}
+				}
+
+				// mark performed flash
+				octopuses[row][col] = -1
+			}
+		}
+	}
+}
+
+func resetFlashes(octopuses [][]octopus) (flashes int) {
+	for row := 0; row < Size; row++ {
+		for col := 0; col < Size; col++ {
+			if octopuses[row][col] == -1 {
+				octopuses[row][col] = 0
+				flashes++
+			}
+		}
+	}
+	return flashes
 }
