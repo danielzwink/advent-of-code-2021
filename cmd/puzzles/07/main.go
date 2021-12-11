@@ -22,19 +22,19 @@ func main() {
 }
 
 func part1() (int, time.Duration) {
-	file := util.ReadFile("07")
+	lines := util.ReadFile("07")
 	start := time.Now()
 
-	sortedCrabs := getSortedCrabPositions(file[0])
+	sortedCrabs := getSortedCrabPositions(lines[0])
 	totalDistance := calculateMinTotalDistance(sortedCrabs, calcDistancePart1)
 	return totalDistance, time.Since(start)
 }
 
 func part2() (int, time.Duration) {
-	file := util.ReadFile("07")
+	lines := util.ReadFile("07")
 	start := time.Now()
 
-	sortedCrabs := getSortedCrabPositions(file[0])
+	sortedCrabs := getSortedCrabPositions(lines[0])
 	totalDistance := calculateMinTotalDistance(sortedCrabs, calcDistancePart2)
 	return totalDistance, time.Since(start)
 }

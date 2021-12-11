@@ -19,6 +19,7 @@ func main() {
 
 func part1() (int, time.Duration) {
 	file := util.OpenFile("08")
+	defer file.Close()
 	start := time.Now()
 
 	sum := 0
@@ -40,6 +41,7 @@ func part1() (int, time.Duration) {
 
 func part2() (int, time.Duration) {
 	file := util.OpenFile("08")
+	defer file.Close()
 	start := time.Now()
 
 	sum := 0

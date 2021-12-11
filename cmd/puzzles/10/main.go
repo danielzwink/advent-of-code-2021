@@ -40,6 +40,8 @@ func main() {
 
 func part1() (int, time.Duration) {
 	file := util.OpenFile("10")
+	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 	start := time.Now()
 
@@ -63,6 +65,8 @@ func part1() (int, time.Duration) {
 
 func part2() (int, time.Duration) {
 	file := util.OpenFile("10")
+	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 	start := time.Now()
 

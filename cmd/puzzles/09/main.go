@@ -13,6 +13,8 @@ import (
 
 func main() {
 	file := util.OpenFile("09")
+	defer file.Close()
+
 	matrix := readMatrix(file)
 
 	part1Result, part1Duration := part1(matrix)

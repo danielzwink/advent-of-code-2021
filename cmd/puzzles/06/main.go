@@ -20,11 +20,11 @@ func main() {
 }
 
 func part1BadPerformance() (int, time.Duration) {
-	file := util.ReadFile("06")
+	lines := util.ReadFile("06")
 
 	start := time.Now()
 	var fish []int
-	for _, initialValue := range strings.Split(file[0], ",") {
+	for _, initialValue := range strings.Split(lines[0], ",") {
 		initialTimer, _ := strconv.Atoi(initialValue)
 		fish = append(fish, initialTimer)
 	}
@@ -45,17 +45,17 @@ func part1BadPerformance() (int, time.Duration) {
 }
 
 func part1() (int, time.Duration) {
-	file := util.ReadFile("06")
+	lines := util.ReadFile("06")
 	start := time.Now()
-	timerCounter := initTimer(file[0])
+	timerCounter := initTimer(lines[0])
 	result := performEvolution(timerCounter, 80)
 	return result, time.Since(start)
 }
 
 func part2() (int, time.Duration) {
-	file := util.ReadFile("06")
+	lines := util.ReadFile("06")
 	start := time.Now()
-	timerCounter := initTimer(file[0])
+	timerCounter := initTimer(lines[0])
 	result := performEvolution(timerCounter, 256)
 	return result, time.Since(start)
 }
