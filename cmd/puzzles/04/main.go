@@ -15,15 +15,13 @@ func main() {
 }
 
 func part1() int {
-	lines := util.ReadFile("04")
+	lines := util.ReadFile("04/input")
 	drawings := convertLineToDrawings(lines[0])
 	boards := convertLinesToBoards(lines[1:])
 
 	for _, drawing := range drawings {
-		//fmt.Printf("Drawing: %d\n", drawing)
 		for _, board := range boards {
 			board.Draw(drawing)
-			//fmt.Printf("Boards:\n%v\n", boards)
 
 			if board.Won() {
 				return drawing * board.RemainingSum()
@@ -36,7 +34,7 @@ func part1() int {
 }
 
 func part2() int {
-	lines := util.ReadFile("04")
+	lines := util.ReadFile("04/input")
 	drawings := convertLineToDrawings(lines[0])
 	boards := convertLinesToBoards(lines[1:])
 

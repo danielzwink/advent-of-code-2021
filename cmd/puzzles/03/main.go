@@ -16,7 +16,7 @@ func main() {
 const LENGTH = 12
 
 func part1() uint64 {
-	file := util.OpenFile("03")
+	file := util.OpenFile("03/input")
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
@@ -50,7 +50,7 @@ func part1() uint64 {
 }
 
 func part2() uint64 {
-	oxyPrevious := util.ReadFile("03")
+	oxyPrevious := util.ReadFile("03/input")
 	co2Previous := oxyPrevious
 
 	oxyComparison := func(zeroes int, ones int) (keep string) {

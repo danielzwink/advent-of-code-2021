@@ -20,7 +20,7 @@ func main() {
 func part1() (int, time.Duration) {
 	start := time.Now()
 
-	player1, player2 := readInput("21", 1000)
+	player1, player2 := readInput("21/input", 1000)
 	die := types.DeterministicDie{}
 
 	for true {

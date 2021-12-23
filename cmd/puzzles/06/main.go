@@ -20,7 +20,7 @@ func main() {
 }
 
 func part1BadPerformance() (int, time.Duration) {
-	lines := util.ReadFile("06")
+	lines := util.ReadFile("06/input")
 
 	start := time.Now()
 	var fish []int
@@ -45,7 +45,7 @@ func part1BadPerformance() (int, time.Duration) {
 }
 
 func part1() (int, time.Duration) {
-	lines := util.ReadFile("06")
+	lines := util.ReadFile("06/input")
 	start := time.Now()
 	timerCounter := initTimer(lines[0])
 	result := performEvolution(timerCounter, 80)
@@ -53,7 +53,7 @@ func part1() (int, time.Duration) {
 }
 
 func part2() (int, time.Duration) {
-	lines := util.ReadFile("06")
+	lines := util.ReadFile("06/input")
 	start := time.Now()
 	timerCounter := initTimer(lines[0])
 	result := performEvolution(timerCounter, 256)

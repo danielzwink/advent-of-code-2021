@@ -106,7 +106,7 @@ func determineLowestRiskLevel(g graph.Graph) int {
 }
 
 func readMatrix() [][]int {
-	lines := util.ReadFile("15")
+	lines := util.ReadFile("15/input")
 
 	matrix := make([][]int, len(lines))
 	for y, line := range lines {

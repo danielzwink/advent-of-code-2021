@@ -14,7 +14,7 @@ func main() {
 }
 
 func part1() int {
-	file := util.OpenFile("01")
+	file := util.OpenFile("01/input")
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
@@ -33,7 +33,7 @@ func part1() int {
 }
 
 func part2() int {
-	file := util.OpenFile("01")
+	file := util.OpenFile("01/input")
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)

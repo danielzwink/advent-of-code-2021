@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	// see "assets/puzzles/17/input.txt"
 	targetArea := area{minX: 201, maxX: 230, minY: -99, maxY: -65}
 
 	part1Result, part1Duration := part1(targetArea)

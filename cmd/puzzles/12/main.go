@@ -77,7 +77,7 @@ func isBigCaveOrNotBeenVisited(current string, previous []string) bool {
 }
 
 func readCaveMap() map[string][]string {
-	file := util.OpenFile("12")
+	file := util.OpenFile("12/input")
 	defer file.Close()
 
 	caveMap := make(map[string][]string)

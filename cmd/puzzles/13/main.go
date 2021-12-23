@@ -101,7 +101,7 @@ type folding struct {
 var foldInstructionPattern, _ = regexp.Compile("fold along ([xy])=([0-9]+)")
 
 func getMatrixAndFoldInstructions() ([][]bool, []folding) {
-	lines := util.ReadFile("13")
+	lines := util.ReadFile("13/input")
 
 	maxX, maxY := 0, 0
 	coordinates := make([]coordinate, 0, len(lines))

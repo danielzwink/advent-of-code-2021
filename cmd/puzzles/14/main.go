@@ -77,7 +77,7 @@ type polymer map[string]int
 var insertionRulePattern, _ = regexp.Compile("([A-Z]{2}) -> ([A-Z])")
 
 func getInitialPolymerAndInsertionRules() (polymer, rules) {
-	lines := util.ReadFile("14")
+	lines := util.ReadFile("14/input")
 
 	template := lines[0]
 	length := len(template)

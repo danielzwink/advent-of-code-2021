@@ -62,7 +62,7 @@ func part2() (int, time.Duration) {
 }
 
 func readOctopuses() [][]octopus {
-	lines := util.ReadFile("11")
+	lines := util.ReadFile("11/input")
 	octopuses := make([][]octopus, 0, Size)
 
 	for _, line := range lines {

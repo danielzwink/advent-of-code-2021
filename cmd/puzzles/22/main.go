@@ -20,7 +20,7 @@ func main() {
 func part1() (int, time.Duration) {
 	start := time.Now()
 
-	rebootSteps := readRebootSteps("22", true, -50, 50)
+	rebootSteps := readRebootSteps("22/input", true, -50, 50)
 	cubes := make(map[string]bool, 0)
 	for _, step := range rebootSteps {
 		for x := step.X.Min; x <= step.X.Max; x++ {

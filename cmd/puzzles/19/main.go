@@ -19,7 +19,7 @@ func main() {
 func part1() (int, time.Duration) {
 	start := time.Now()
 
-	chaos := readUniverse("19")
+	chaos := readUniverse("19/input")
 	aligned := alignUniverse(chaos)
 
 	uniqueBeacons := make(map[string]bool, 300)
@@ -36,7 +36,7 @@ func part1() (int, time.Duration) {
 func part2() (int, time.Duration) {
 	start := time.Now()
 
-	universe := readUniverse("19")
+	universe := readUniverse("19/input")
 	aligned := alignUniverse(universe)
 
 	maxDistance := 0

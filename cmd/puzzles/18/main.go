@@ -18,7 +18,7 @@ func main() {
 
 func part1() (int, time.Duration) {
 	start := time.Now()
-	homework := readHomework("18")
+	homework := readHomework("18/input")
 
 	sum := homework[0]
 	for _, pair := range homework[1:] {
@@ -29,7 +29,7 @@ func part1() (int, time.Duration) {
 
 func part2() (int, time.Duration) {
 	start := time.Now()
-	homework := readHomework("18")
+	homework := readHomework("18/input")
 
 	max := 0
 	for _, pair1 := range homework {

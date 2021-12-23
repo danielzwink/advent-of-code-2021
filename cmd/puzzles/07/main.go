@@ -22,7 +22,7 @@ func main() {
 }
 
 func part1() (int, time.Duration) {
-	lines := util.ReadFile("07")
+	lines := util.ReadFile("07/input")
 	start := time.Now()
 
 	sortedCrabs := getSortedCrabPositions(lines[0])
@@ -31,7 +31,7 @@ func part1() (int, time.Duration) {
 }
 
 func part2() (int, time.Duration) {
-	lines := util.ReadFile("07")
+	lines := util.ReadFile("07/input")
 	start := time.Now()
 
 	sortedCrabs := getSortedCrabPositions(lines[0])

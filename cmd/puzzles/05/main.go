@@ -9,14 +9,14 @@ import (
 )
 
 func main() {
-	fmt.Printf("Part 1: %d\n", part1())
-	fmt.Printf("Part 2: %d\n", part2())
+	fmt.Printf("Part 1: %5d\n", part1())
+	fmt.Printf("Part 2: %5d\n", part2())
 }
 
 const CSS = 999 // coordinate system size for x and y-axis
 
 func part1() int {
-	file := util.OpenFile("05")
+	file := util.OpenFile("05/input")
 	defer file.Close()
 
 	var field [CSS][CSS]int
@@ -31,7 +31,7 @@ func part1() int {
 }
 
 func part2() int {
-	file := util.OpenFile("05")
+	file := util.OpenFile("05/input")
 	defer file.Close()
 
 	var field [CSS][CSS]int

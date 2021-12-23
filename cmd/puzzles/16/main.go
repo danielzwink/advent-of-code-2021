@@ -101,7 +101,7 @@ func convertBinaryToDecimal(binary string) int {
 }
 
 func readHexToBinary() string {
-	line := util.ReadFile("16")[0]
+	line := util.ReadFile("16/input")[0]
 
 	binary := strings.Builder{}
 	binary.Grow(len(line) * 4)

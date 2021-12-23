@@ -18,7 +18,7 @@ func main() {
 }
 
 func part1() (int, time.Duration) {
-	file := util.OpenFile("08")
+	file := util.OpenFile("08/input")
 	defer file.Close()
 	start := time.Now()
 
@@ -40,7 +40,7 @@ func part1() (int, time.Duration) {
 }
 
 func part2() (int, time.Duration) {
-	file := util.OpenFile("08")
+	file := util.OpenFile("08/input")
 	defer file.Close()
 	start := time.Now()
 

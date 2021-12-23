@@ -4,7 +4,6 @@ import (
 	"advent-of-code-2021/pkg/util"
 	"bufio"
 	"fmt"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -12,10 +11,7 @@ import (
 )
 
 func main() {
-	file := util.OpenFile("09")
-	defer file.Close()
-
-	matrix := readMatrix(file)
+	matrix := readMatrix("09/input")
 
 	part1Result, part1Duration := part1(matrix)
 	fmt.Printf("Part 1: %6d (duration: %s)\n", part1Result, part1Duration)
@@ -31,7 +27,10 @@ type location struct {
 	visited          bool
 }
 
-func readMatrix(file *os.File) [][]*location {
+func readMatrix(day string) [][]*location {
+	file := util.OpenFile(day)
+	defer file.Close()
+
 	matrix := make([][]*location, 0, ReservedSize)
 	scanner := bufio.NewScanner(file)
 

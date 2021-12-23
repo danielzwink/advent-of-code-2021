@@ -9,12 +9,12 @@ import (
 )
 
 func main() {
-	fmt.Printf("Part 1: %d\n", part1())
-	fmt.Printf("Part 2: %d\n", part2())
+	fmt.Printf("Part 1: %10d\n", part1())
+	fmt.Printf("Part 2: %10d\n", part2())
 }
 
 func part1() int {
-	file := util.OpenFile("02")
+	file := util.OpenFile("02/input")
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
@@ -40,7 +40,7 @@ func part1() int {
 }
 
 func part2() int {
-	file := util.OpenFile("02")
+	file := util.OpenFile("02/input")
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)

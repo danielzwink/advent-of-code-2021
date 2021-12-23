@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	image, enhancement := readInput("20")
+	image, enhancement := readInput("20/input")
 
 	part1Result, part1Duration := part1(image, enhancement)
 	fmt.Printf("Part 1: %5d (duration: %s)\n", part1Result, part1Duration)
